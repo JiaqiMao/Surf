@@ -1,0 +1,337 @@
+/* 引入字体 */
+@import url('https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@300;400;700&family=Zhi+Mang+Xing&family=Ma+Shan+Zheng&family=Long+Cang&display=swap');
+
+/* 全局样式 */
+body {
+    position: relative;
+    max-width: 100%;
+    padding-bottom: 100px; /* Footer height */
+    margin: 0;
+    padding: 0;
+    font-family: "Long Cang", cursive;
+    font-weight: bold; /* 这将应用粗体样式 */
+    color: #253647;
+    background-image: url('image6.jpg');
+    background-size: cover; /* 覆盖整个页面 */
+    background-position: center; /* 居中图片 */
+    background-repeat: no-repeat; /* 不重复图片 */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between; /* 使页脚保持在底部 */
+}
+
+/* 标题样式 */
+h1 {
+    font-family: "Long Cang", cursive;
+    color: #253647;
+    text-align: center;
+    margin: 8px;
+    padding: 10px;
+    font-size: 35px;
+    letter-spacing: 8px; /* 设置字母间距 */
+}
+
+/* 分割线样式 */
+hr {
+    border: 0;
+    height: 1px;
+    background-color: transparent;
+    margin: 0 0;
+}
+
+/* 头部样式 */
+header {
+    background-color: transparent;
+    padding: 0;
+    font-size: 24px;
+    text-align: center;
+    font-family: 'Ma Shan Zheng', cursive;
+}
+
+/* 主内容区域 */
+main {
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto;
+}
+
+/* 侧边栏样式 */
+.sidebar {
+    width: 17%;
+    margin-right: 20px;
+}
+
+/* 视频播放器容器样式 */
+.video-container {
+    width: 913px;
+    height: 513px;
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* 主体布局样式 */
+.main-content {
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    padding: 20px;
+    padding-bottom: 100px;
+    gap: 20px;
+}
+
+/* 上传按钮样式 */
+.upload-button {
+    padding: 10px 20px;
+    font-family: "Long Cang", cursive;
+    color: #253647;
+    font-size: 16px;
+    font-weight: bold;
+    background-color: #D2E3C8;
+    border: 2px solid #436850;
+    border-radius: 10px;
+    cursor: pointer;
+    margin-top: 10px; /* 适当调整按钮的顶部边距 */
+    margin-left: 20px;
+    transition: background-color 0.3s, transform 0.3s; /* 添加按钮动画 */
+}
+
+.upload-button:hover {
+    background-color: #4F6F52;
+    transform: scale(1.05); /* 鼠标悬停时按钮放大 */
+}
+
+
+/* 上传输入框样式 */
+.upload-input {
+    display: none;
+}
+
+/* 侧边栏和视频播放器内部元素样式 */
+.sidebar, .video-container {
+    border: 2px solid #4F6F52;
+    border-radius: 10px;
+    padding: 0px;
+    background-color: #E6E6E6;
+}
+
+/* 视频列表样式 */
+.video-list {
+    padding-left: 0;
+    margin: 10px 0;
+    overflow-y: scroll;
+    max-height: 500px;
+}
+
+.video-list li {
+    background-color: #E6E6E6;
+    color: #253647;
+    padding: 10px;
+    margin-bottom: 10px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    list-style: none;
+    display: flex;
+    margin-left: 0;
+}
+
+.video-list li:hover {
+    background-color: #698471;
+}
+
+/* 缩略图样式 */
+.video-thumbnail {
+    background-color: #cccccc;
+    color: #333;
+    width: 160px;
+    height: 90px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 5px;
+    border-radius: 5px;
+    overflow: hidden;
+    text-align: center;
+}
+
+/* 控制按钮列表样式 */
+#right-sidebar .control-list {
+    list-style-type: none;
+    padding: 0;
+    flex-direction: column;
+}
+
+#right-sidebar .control-list li {
+    background-color: #E6E6E6;
+    color: #253647;
+    padding: 10px;
+    margin-bottom: 10px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#right-sidebar .control-list li:hover {
+    background-color: #CAC3BB;
+}
+
+/* 按钮样式 */
+.button {
+    display: block;
+    width: 100%;
+    margin: 10px 0;
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    font-size: 15px;
+}
+
+/* 媒体查询 */
+@media (max-width: 768px) {
+    .video-upload-container {
+        flex-direction: column;
+    }
+
+    .video-container, .upload-container {
+        margin: 0 0 20px 0;
+    }
+}
+
+/* 视频播放器样式 */
+video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    max-width: 1280px;
+    border: 0px solid #698471;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.1);
+    display: block;
+}
+
+/* 控制按钮样式 */
+.control-controls {
+    border: 2px solid #4F6F52;
+    border-radius: 10px;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-left: 15px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.1);
+    margin-top: 110px;
+}
+
+/* 隐藏元素样式 */
+.hide-me {
+    opacity: 0;
+    position: absolute;
+    z-index: -1;
+}
+
+/* 切换开关样式 */
+.toggle-container {
+    display: flex;
+    align-items: center;
+    justify-content: start;
+    margin-bottom: 10px;
+}
+
+.toggle-label {
+    margin-right: 10px;
+}
+
+.toggle-button {
+    font-family: "Long Cang", cursive;
+    background-color: #D2E3C8;
+    font-weight: bold;
+    color: #253647;
+    font-size: 16px;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    text-align: center;
+    line-height: 26px;
+    padding: 0 10px;
+    width: 30px;
+    height: 26px;
+    transition: background-color 0.3s, box-shadow 0.3s;
+    display: inline-block;
+    position: relative;
+    overflow: hidden;
+    white-space: nowrap;
+}
+
+.toggle-button::after {
+    content: '';
+    position: absolute;
+    top: 2px;
+    left: 2px;
+    width: 22px;
+    height: 22px;
+    background-color: white;
+    border-radius: 50%;
+    transition: transform 0.3s;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+}
+
+input[type="checkbox"]:checked + .toggle-button {
+    background-color: #4F6F52;
+}
+
+input[type="checkbox"]:checked + .toggle-button::after {
+    transform: translateX(25px);
+}
+
+.toggle-button:hover {
+    background-color: #B1D0A9;
+}
+
+.toggle-button:hover::after {
+    box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+}
+
+/* 页脚样式 */
+footer {
+    display: flex;
+    justify-content: space-between;
+    text-align: center;
+    align-items: center;
+    padding: 10px 20px;
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 97%;
+    color: #12372A;
+}
+
+/* 社交图标样式 */
+.socials {
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    padding: 0 10px;
+}
+
+.socials li {
+    padding: 0 10px;
+}
+
+.socials a {
+    color: #436850;
+    font-size: 24px;
+    transition: color 0.3s;
+}
+
+.socials a:hover {
+    color: white;
+}

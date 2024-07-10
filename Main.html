@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>戏曲视频播放器</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css?family=Noto+Sans+SC:300,400,700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" integrity="sha384-k6RqeWecG8z7jFQ3+9c2Mkz+BvjzgI6cJ4mvqXNJQz+i9cI6JdV7F6BJ47bG2JL7" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+<body>
+
+<header>
+    <h1>戏曲视频播放器</h1>
+    <div style="position: absolute; left: 60px; top: 20px;">
+        <button id="uploadButton" class="upload-button">上传视频</button>
+        <input type="file" id="videoUpload" accept="video/*" style="display: none;">
+    </div>
+    <div style="position: absolute; left: 60px; top: 65px;">
+        <button id="uploadSubtitleButton" class="upload-button">上传字幕</button>
+        <input type="file" id="subtitleUpload" accept=".vtt" style="display: none;">
+    </div>
+</header>
+
+<hr>
+
+<div class="main-content">
+    <!-- 右侧控制栏 -->
+    <div class="control-controls">
+        <div class="toggle-container">
+            <span class="toggle-label">字幕显示</span>
+            <input type="checkbox" id="subtitlesToggleCheckbox" class="hide-me">
+            <label for="subtitlesToggleCheckbox" class="toggle-button"></label>
+        </div>
+
+        <!-- 新增字幕设置区域 -->
+        <div id="subtitleSettings" style="display: none;">
+            <div>
+                <label for="subtitleColor">字幕颜色:</label>
+                <input type="color" id="subtitleColor" value="#ffffff">
+            </div>
+            <div>
+                <label for="subtitleFontSize">字幕字号:</label>
+                <input type="number" id="subtitleFontSize" value="16">
+            </div>
+            <div>
+                <label for="subtitleAnimation">出场动画:</label>
+                <select id="subtitleAnimation">
+                    <option value="fade">淡入</option>
+                    <option value="slide">滑入</option>
+                    <option value="none">无</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="toggle-container">
+            <span class="toggle-label">角色识别</span>
+            <input type="checkbox" id="roleRecognitionToggleCheckbox" class="hide-me">
+            <label for="roleRecognitionToggleCheckbox" class="toggle-button"></label>
+        </div>
+
+        <div class="toggle-container">
+            <span class="toggle-label">服饰识别</span>
+            <input type="checkbox" id="costumeRecognitionToggleCheckbox" class="hide-me">
+            <label for="costumeRecognitionToggleCheckbox" class="toggle-button"></label>
+        </div>
+    </div>
+
+    <!-- 中间视频播放器容器 -->
+    <div class="video-container">
+        <video id="videoPlayer" controls>
+            <source src="your-video-file.mp4" type="video/mp4">
+            您的浏览器不支持视频标签。
+        </video>
+    </div>
+
+    <!-- 左侧视频列表 -->
+    <div class="sidebar">
+        <ul class="video-list" id="videoList">
+            <li>
+                <div class="video-thumbnail" aria-label="视频1缩略图">视频1缩略图</div>
+                <span>京剧视频1.mp4</span>
+            </li>
+            <li>
+                <div class="video-thumbnail" aria-label="视频2缩略图">视频2缩略图</div>
+                <span>豫剧视频2.mp4</span>
+            </li>
+            <li>
+                <div class="video-thumbnail" aria-label="视频3缩略图">视频3缩略图</div>
+                <span>越剧视频3.mp4</span>
+            </li>
+            <li>
+                <div class="video-thumbnail" aria-label="视频4缩略图">视频4缩略图</div>
+                <span>昆曲视频4.mp4</span>
+            </li>
+            <li>
+                <div class="video-thumbnail" aria-label="视频5缩略图">视频5缩略图</div>
+                <span>黄梅戏视频5.mp4</span>
+            </li>
+        </ul>
+    </div>
+    <footer>
+        <ul class="socials">
+            <li><a href="#"><i class="fa fa-facebook"></i></a></li>
+            <li><a href="#"><i class="fa fa-twitter"></i></a></li>
+            <li><a href="#"><i class="fa fa-github"></i></a></li>
+            <li><a href="#"><i class="fa fa-linkedin-square"></i></a></li>
+            <li><a href="#"><i class="fa fa-instagram"></i></a></li>
+        </ul>
+        <p>版权所有 © 2024 戏曲视频</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
