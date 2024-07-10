@@ -1,5 +1,4 @@
 document.addEventListener('DOMContentLoaded', function() {
-    // 获取元素
     const videoUpload = document.getElementById('videoUpload');
     const subtitleUpload = document.getElementById('subtitleUpload');
     const videoPlayer = document.getElementById('videoPlayer');
@@ -9,7 +8,13 @@ document.addEventListener('DOMContentLoaded', function() {
     const subtitleFontSize = document.getElementById('subtitleFontSize');
     const subtitleAnimation = document.getElementById('subtitleAnimation');
 
-    // 处理视频上传
+    const subtitleDiv = document.createElement('div');
+    subtitleDiv.id = 'subtitles';
+    document.body.appendChild(subtitleDiv);
+
+    let subtitles = [];
+    let currentSubtitle = null;
+
     document.getElementById('uploadButton').addEventListener('click', function() {
         videoUpload.click();
     });
@@ -22,7 +27,6 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 
-    // 处理字幕上传
     document.getElementById('uploadSubtitleButton').addEventListener('click', function() {
         subtitleUpload.click();
     });
@@ -33,59 +37,89 @@ document.addEventListener('DOMContentLoaded', function() {
             const reader = new FileReader();
             reader.onload = function(e) {
                 const vttText = e.target.result;
-                parseVTT(vttText);
+                subtitles = parseVTT(vttText);
+                videoPlayer.ontimeupdate = updateSubtitle;
             };
             reader.readAsText(file);
         }
     });
 
-    // 解析 VTT 文件
-    function parseVTT(vttText) {
-        // 移除之前的 track
-        const existingTrack = videoPlayer.querySelector('track');
-        if (existingTrack) {
-            videoPlayer.removeChild(existingTrack);
-        }
-
-        const track = document.createElement('track');
-        track.kind = 'subtitles';
-        track.label = '字幕';
-        track.srclang = 'zh';
-        track.src = URL.createObjectURL(new Blob([vttText], { type: 'text/vtt' }));
-        videoPlayer.appendChild(track);
-    }
-
-    // 切换字幕显示
     subtitlesToggleCheckbox.addEventListener('change', function() {
-        const track = videoPlayer.querySelector('track');
-        if (track) {
-            track.mode = this.checked ? 'showing' : 'disabled';
-            subtitleSettings.style.display = this.checked ? 'block' : 'none';
-        }
+        subtitleDiv.style.display = this.checked ? 'block' : 'none';
+        subtitleSettings.style.display = this.checked ? 'block' : 'none';
     });
 
-    // 应用字幕设置
-    subtitleColor.addEventListener('input', applySubtitleSettings);
-    subtitleFontSize.addEventListener('input', applySubtitleSettings);
-    subtitleAnimation.addEventListener('change', applySubtitleSettings);
+    subtitleColor.addEventListener('input', applyStyles);
+    subtitleFontSize.addEventListener('input', applyStyles);
+    subtitleAnimation.addEventListener('change', applyStyles);
 
-    function applySubtitleSettings() {
-        const track = videoPlayer.querySelector('track');
-        if (track && track.track) {
-            // 暂时不支持对 track 的样式进行修改，这里仅为示例
-            // 可以通过创建自定义字幕显示层来实现样式设置
-            const cues = track.track.cues;
-            for (let i = 0; i < cues.length; i++) {
-                const cue = cues[i];
-                cue.style = `color: ${subtitleColor.value}; font-size: ${subtitleFontSize.value}px;`;
-                cue.className = subtitleAnimation.value;
+    function parseVTT(vttText) {
+        const lines = vttText.split('\n');
+        const subtitles = [];
+        let i = 0;
+
+        while (i < lines.length) {
+            const timePattern = /(\d{2}:\d{2}:\d{2}\.\d{3}) --> (\d{2}:\d{2}:\d{2}\.\d{3})/;
+            if (timePattern.test(lines[i])) {
+                const [, start, end] = timePattern.exec(lines[i]);
+                const text = lines[++i];
+                subtitles.push({
+                    start: timeToSeconds(start),
+                    end: timeToSeconds(end),
+                    text: text
+                });
+            }
+            i++;
+        }
+        return subtitles;
+    }
+
+    function timeToSeconds(time) {
+        const [hours, minutes, seconds] = time.split(':');
+        return (+hours) * 60 * 60 + (+minutes) * 60 + (+seconds);
+    }
+
+    function updateSubtitle() {
+        const currentTime = videoPlayer.currentTime;
+        const newSubtitle = subtitles.find(subtitle => currentTime >= subtitle.start && currentTime <= subtitle.end);
+
+        if (newSubtitle !== currentSubtitle) {
+            currentSubtitle = newSubtitle;
+            if (currentSubtitle && subtitlesToggleCheckbox.checked) {
+                subtitleDiv.textContent = currentSubtitle.text;
+                applyInAnimation();
+            } else {
+                subtitleDiv.textContent = '';
             }
         }
     }
 
-    // 处理字幕动画样式
+    function applyStyles() {
+        subtitleDiv.style.color = subtitleColor.value;
+        subtitleDiv.style.fontSize = `${subtitleFontSize.value}px`;
+    }
+
+    function applyInAnimation() {
+        const animation = subtitleAnimation.value;
+        if (animation) {
+            subtitleDiv.classList.add(animation);
+            subtitleDiv.addEventListener('animationend', () => {
+                subtitleDiv.classList.remove(animation);
+            }, { once: true });
+        }
+    }
+
     const style = document.createElement('style');
     style.textContent = `
+        #subtitles {
+            position: absolute;
+            bottom: 25%;
+            width: 100%;
+            text-align: center;
+            color: white;
+            font-size: 16px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.75);
+        }
         @keyframes fade {
             from { opacity: 0; }
             to { opacity: 1; }
