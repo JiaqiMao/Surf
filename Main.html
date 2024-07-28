@@ -71,32 +71,42 @@
     <!-- 中间视频播放器容器 -->
     <div class="video-container">
         <video id="videoPlayer" controls>
-            <source src="your-video-file.mp4" type="video/mp4">
+            <source id="videoSource" src="your-video-file.mp4" type="video/mp4">
+            <track id="subtitleTrack" kind="subtitles" src="your-subtitle-file.vtt" srclang="zh" label="中文">
             您的浏览器不支持视频标签。
         </video>
     </div>
-
     <!-- 左侧视频列表 -->
     <div class="sidebar">
         <ul class="video-list" id="videoList">
-            <li>
-                <div class="video-thumbnail" aria-label="视频1缩略图">视频1缩略图</div>
+            <li data-video="source1.mp4" data-subtitle="sample.vtt">
+                <div class="video-thumbnail" aria-label="视频1缩略图">
+                    <img src="source1Picture.png" alt="视频1缩略图">
+                </div>
                 <span>京剧视频1.mp4</span>
             </li>
-            <li>
-                <div class="video-thumbnail" aria-label="视频2缩略图">视频2缩略图</div>
+            <li data-video="source2.mp4" data-subtitle="subtitle2.vtt">
+                <div class="video-thumbnail" aria-label="视频2缩略图">
+                    <img src="source2Picture.png" alt="视频2缩略图">
+                </div>
                 <span>豫剧视频2.mp4</span>
             </li>
-            <li>
-                <div class="video-thumbnail" aria-label="视频3缩略图">视频3缩略图</div>
+            <li data-video="video3.mp4" data-subtitle="subtitle3.vtt">
+                <div class="video-thumbnail" aria-label="视频3缩略图">
+                    <img src="source3Picture.png" alt="视频3缩略图">
+                </div>
                 <span>越剧视频3.mp4</span>
             </li>
-            <li>
-                <div class="video-thumbnail" aria-label="视频4缩略图">视频4缩略图</div>
+            <li data-video="video4.mp4" data-subtitle="subtitle4.vtt">
+                <div class="video-thumbnail" aria-label="视频4缩略图">
+                    <img src="source4Picture.png" alt="视频4缩略图">
+                </div>
                 <span>昆曲视频4.mp4</span>
             </li>
-            <li>
-                <div class="video-thumbnail" aria-label="视频5缩略图">视频5缩略图</div>
+            <li data-video="video5.mp4" data-subtitle="subtitle5.vtt">
+                <div class="video-thumbnail" aria-label="视频5缩略图">
+                    <img src="source5Picture.png" alt="视频5缩略图">
+                </div>
                 <span>黄梅戏视频5.mp4</span>
             </li>
         </ul>

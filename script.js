@@ -132,4 +132,36 @@ document.addEventListener('DOMContentLoaded', function() {
         .slide { animation: slide 1s ease-in-out; }
     `;
     document.head.appendChild(style);
+
+    // New code for video list functionality
+    const videoSource = document.getElementById('videoSource');
+    const videoList = document.getElementById('videoList');
+
+    videoList.addEventListener('click', (event) => {
+        const listItem = event.target.closest('li');
+        if (listItem) {
+            const videoUrl = listItem.getAttribute('data-video');
+            if (videoUrl) {
+                const videoFilename = videoUrl.split('/').pop().split('.').shift();
+                const subtitleUrl = `${videoFilename}.vtt`;
+
+                videoSource.src = videoUrl;
+                videoPlayer.load();
+                videoPlayer.play();
+
+                fetch(subtitleUrl)
+                    .then(response => {
+                        if (!response.ok) {
+                            throw new Error(`Network response was not ok: ${response.statusText}`);
+                        }
+                        return response.text();
+                    })
+                    .then(vttText => {
+                        subtitles = parseVTT(vttText);
+                        videoPlayer.ontimeupdate = updateSubtitle;
+                    })
+                    .catch(error => console.error('Error loading subtitle file:', error));
+            }
+        }
+    });
 });
